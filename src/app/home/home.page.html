@@ -1,20 +1,32 @@
-<ion-header [translucent]="true">
+<ion-header mode="ios">
+  <ion-toolbar id="home_title">
+    <ion-card-title>Pokédex</ion-card-title>
+    <p>Busca un Pokémon por su nombre o utiliza su número de registro Pokémon</p>
+  </ion-toolbar>
+
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-searchbar animated="true" placeholder="Pokémon o Número"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list>
+    <ion-card *ngFor="let pokemon of [1,2,3,4,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]" class="ion-no-padding ion-no-margin">
+      <ion-card-content>
+        <ion-item lines="none" class="ion-no-padding">
+          <ion-thumbnail slot="start">
+            <img alt="Bulbasaur" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" />
+          </ion-thumbnail>
+          <div>
+            <ion-card-title><strong>Bulbasaur</strong></ion-card-title>
+            <ion-card-subtitle>0001</ion-card-subtitle>
+          </div>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-infinite-scroll>
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
