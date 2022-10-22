@@ -1,32 +1,34 @@
 <ion-header mode="ios">
-  <ion-toolbar id="home_title">
+  <ion-toolbar id="home_title" color="primary">
     <ion-card-title>Pokédex</ion-card-title>
     <p>Busca un Pokémon por su nombre o utiliza su número de registro Pokémon</p>
   </ion-toolbar>
 
-  <ion-toolbar>
-    <ion-searchbar animated="true" placeholder="Pokémon o Número"></ion-searchbar>
+  <ion-toolbar class="ion-padding-top">
+    <ion-searchbar animated="true" placeholder="Pokémon o Número" (ionChange)="onChangeSearch($event)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list>
-    <ion-card *ngFor="let pokemon of [1,2,3,4,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]" class="ion-no-padding ion-no-margin">
+  <ion-list mode="ios">
+    <ion-card
+      *ngFor="let pokemon of pokemonList" class="ion-no-padding ion-no-margin"
+      [routerLink]="pokemon.id" >
       <ion-card-content>
         <ion-item lines="none" class="ion-no-padding">
           <ion-thumbnail slot="start">
-            <img alt="Bulbasaur" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" />
+            <img [alt]="pokemon.name" [src]="pokemon.image" />
           </ion-thumbnail>
           <div>
-            <ion-card-title><strong>Bulbasaur</strong></ion-card-title>
-            <ion-card-subtitle>0001</ion-card-subtitle>
+            <ion-card-title><strong>{{pokemon.name}}</strong></ion-card-title>
+            <ion-card-subtitle>{{pokemon.id}}</ion-card-subtitle>
           </div>
         </ion-item>
       </ion-card-content>
     </ion-card>
   </ion-list>
 
-  <ion-infinite-scroll>
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  <ion-infinite-scroll position="bottom" threshold="10%" (ionInfinite)="loadPokemons(true, $event)">
+    <ion-infinite-scroll-content loading-spinner="lines-sharp-small" loading-text="Cargando Pokémones" ></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

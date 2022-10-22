@@ -1,9 +1,73 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>details</ion-title>
+<ion-header mode="ios">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" mode="md"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">{{pokemon?.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div *ngIf="pokemon">
+    <div>
+      <ion-img [src]="pokemon.image"></ion-img>
+    </div>
 
+    <ion-item lines="none" mode="ios">
+      <ion-chip *ngFor="let type of pokemon.types" slot="end" [color]="type.type.name">
+        <ion-label>{{type.type.name | titlecase}}</ion-label>
+      </ion-chip>
+    </ion-item>
+
+    <ion-card mode="ios">
+      <ion-card-header>
+        <ion-card-title>#{{pokemon.id}} {{pokemon.name | titlecase}}</ion-card-title>
+        <ion-item lines="none" class="ion-no-padding ion-no-margin">
+          <ion-card-subtitle>{{pokemon.weight}} lbs</ion-card-subtitle>
+        </ion-item>
+        <ion-label>
+          <strong>Habilities: </strong>
+          <span *ngFor="let ability of pokemon.abilities; let isLast = last" class="ion-text-capitalize">
+            {{ability.ability.name}} {{isLast ? '' : ', '}}
+          </span>
+        </ion-label>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card mode="ios">
+      <ion-card-content>
+        <ion-item lines="none" class="ion-no-padding ion-no-margin">
+          <ion-icon slot="start" name="heart" color="danger"></ion-icon>
+          <ion-progress-bar color="danger" buffer="0" [value]="stats.hp/200"></ion-progress-bar>
+          <ion-chip slot="end" color="danger" outline="true">
+            <ion-label>{{stats.hp}}</ion-label>
+          </ion-chip>
+        </ion-item>
+
+        <ion-item lines="none" class="ion-no-padding ion-no-margin">
+          <ion-icon slot="start" name="barbell" color="warning"></ion-icon>
+          <ion-progress-bar color="warning" buffer="0" [value]="stats.attack/200"></ion-progress-bar>
+          <ion-chip slot="end" color="warning" outline="true">
+            <ion-label>{{stats.attack}}</ion-label>
+          </ion-chip>
+        </ion-item>
+
+        <ion-item lines="none" class="ion-no-padding ion-no-margin">
+          <ion-icon slot="start" name="shield" color="success"></ion-icon>
+          <ion-progress-bar color="success" buffer="0" [value]="stats.defense/200"></ion-progress-bar>
+          <ion-chip slot="end" color="success" outline="true">
+            <ion-label>{{stats.defense}}</ion-label>
+          </ion-chip>
+        </ion-item>
+
+        <ion-item lines="none" class="ion-no-padding ion-no-margin">
+          <ion-icon slot="start" name="flash" color="secondary"></ion-icon>
+          <ion-progress-bar color="secondary" buffer="0" [value]="stats.speed/200"></ion-progress-bar>
+          <ion-chip slot="end" color="secondary" outline="true">
+            <ion-label>{{stats.speed}}</ion-label>
+          </ion-chip>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
